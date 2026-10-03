@@ -16,6 +16,10 @@
   html, body { width: 1080px; height: 1920px; overflow: hidden; background: #f4f5fa; }
   body { font-family: 'Comfortaa', sans-serif; color: var(--white); }
   .ar { font-family: 'Cairo', sans-serif; direction: rtl; }
+  .ar .lat, .lat { font-family: 'Comfortaa', sans-serif; direction: ltr; unicode-bidi: isolate; }
+  .job.ar, .rule.ar { direction: rtl; }
+  .days.ar { direction: rtl; }
+  .day.ar, .days.ar .day { font-family: 'Cairo', sans-serif; font-size: 40px; padding: 14px 0; }
 
   #header { position: absolute; left: 0; top: 0; width: 1080px; height: 230px; display: flex; align-items: center; justify-content: center; }
   #header img { width: 600px; margin-top: 10px; }
@@ -121,9 +125,9 @@
   <!-- 1 · Khedma jdida 3la Dar L'emploi -->
   <div class="scene" data-start="0" data-end="2.65">
     <div class="center" style="top:560px" data-in="0.05" data-fx="pop"><span class="chip">OFFRE D'EMPLOI</span></div>
-    <div class="center h-xl" style="top:660px" data-in="0.15" data-fx="up">KHEDMA</div>
-    <div class="center h-xl orange" style="top:820px" data-in="0.55" data-fx="pop">JDIDA!</div>
-    <div class="center t-m" style="top:1010px" data-in="1.1" data-fx="up">3la Dar L'emploi</div>
+    <div class="center h-xl ar" style="top:640px; font-weight:900" data-in="0.15" data-fx="up">خدمة</div>
+    <div class="center h-xl orange ar" style="top:810px; font-weight:900" data-in="0.55" data-fx="pop">جديدة!</div>
+    <div class="center t-m ar" style="top:1030px; font-weight:700" data-in="1.1" data-fx="up">على <span class="lat">Dar L'emploi</span></div>
   </div>
 
   <!-- 2 · Dcollection -->
@@ -132,20 +136,20 @@
       <span class="icon-tile"><svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="#1b3a78" stroke-width="1.6" stroke-linejoin="round"><path d="M3 20V10l5 3V10l5 3V6h3l1 0v14z"/><path d="M2 20h20"/><path d="M7 16.5h1.5M11 16.5h1.5M15 16.5h1.5" stroke="#f28a52" stroke-width="2"/></svg></span>
     </div>
     <div class="center h-l" style="top:640px" data-in="2.95" data-fx="up">D<span class="orange">collection</span></div>
-    <div class="center t-s" style="top:800px; padding:0 90px; color:#fff" data-in="3.9" data-fx="up">Masna3 ta3 lebsa jahza<br>lel nsa</div>
+    <div class="center t-s ar" style="top:790px; padding:0 90px; color:#fff; font-size:54px; font-weight:700" data-in="3.9" data-fx="up">مصنع تاع اللبسة الجاهزة<br>للنسا</div>
     <div class="center" style="top:980px" data-in="4.6" data-fx="pop"><span class="chip gold">Prêt-à-porter féminin</span></div>
   </div>
 
   <!-- 3 · Rahom y7awsou 3la -->
   <div class="scene" data-start="6.65" data-end="12.1">
-    <div class="center t-m" style="top:420px; font-size:66px" data-in="6.85" data-fx="up">Rahom y7awsou 3la:</div>
-    <div class="job" style="top:580px" data-in="7.6" data-fx="left">
+    <div class="center t-m ar" style="top:400px; font-size:72px; font-weight:700" data-in="6.85" data-fx="up">راهم يحوسو على:</div>
+    <div class="job ar" style="top:580px" data-in="7.6" data-fx="left">
       <div class="ico"><svg width="96" height="96" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.1 15.9M14.5 14.5 20 20M8.1 8.1 12 12"/></svg></div>
-      <div><div class="name">Khayyatat</div><div class="sub">Couture des vêtements</div></div>
+      <div><div class="name" style="font-family:Cairo; font-size:66px">خياطات</div><div class="sub lat">Couture des vêtements</div></div>
     </div>
-    <div class="job" style="top:860px" data-in="8.95" data-fx="left">
+    <div class="job ar" style="top:860px" data-in="8.95" data-fx="left">
       <div class="ico"><svg width="96" height="96" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17h18v-1a7 7 0 0 0-7-7H9.5"/><path d="M9.5 9H6.5a3 3 0 0 0-3 3"/><path d="M3 17a0 0 0 0 1 0 0"/><path d="M6 20h2M11 20h2M16 20h2" stroke-width="2.2"/></svg></div>
-      <div><div class="name">Kayy lebsa</div><div class="sub">Repassage <span class="pro" data-in="11.3" data-fx="pop">b'i7tirafiya</span></div></div>
+      <div><div class="name" style="font-family:Cairo; font-size:66px">كيّ اللبسة</div><div class="sub"><span class="pro" style="font-family:Cairo" data-in="11.3" data-fx="pop">باحترافية</span> · <span class="lat">Repassage</span></div></div>
     </div>
   </div>
 
@@ -154,9 +158,9 @@
     <div class="center" style="top:360px" data-in="12.1" data-fx="spin">
       <svg width="130" height="130" viewBox="0 0 24 24"><path fill="#f2c94c" d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"/></svg>
     </div>
-    <div class="center h-m" style="top:540px; font-size:86px" data-in="12.2" data-fx="up">Jawda</div>
-    <div class="center h-m orange" style="top:640px; font-size:86px" data-in="12.6" data-fx="up">w Itqan</div>
-    <div class="center t-s" style="top:800px; color:#fff" data-in="13.2" data-fx="up">bach ntawrou lmontouj<br>lma7alli</div>
+    <div class="center h-m ar" style="top:520px; font-size:96px; font-weight:900" data-in="12.2" data-fx="up">الجودة</div>
+    <div class="center h-m orange ar" style="top:640px; font-size:96px; font-weight:900" data-in="12.6" data-fx="up">والإتقان</div>
+    <div class="center t-s ar" style="top:800px; color:#fff; font-size:54px; font-weight:700" data-in="13.2" data-fx="up">باش نطوّرو المنتوج<br>المحلي</div>
     <div class="center" style="top:985px" data-in="14.85" data-fx="pop">
       <span style="display:inline-flex; align-items:center; gap:28px; font-size:60px; font-weight:700">
         <svg width="120" height="80" viewBox="0 0 30 20" style="border-radius:8px"><rect width="15" height="20" fill="#006233"/><rect x="15" width="15" height="20" fill="#fff"/><circle cx="15" cy="10" r="5" fill="#d21034"/><circle cx="16.3" cy="10" r="4" fill="#fff"/><circle cx="16" cy="10" r="0" /><path fill="#d21034" d="M18.3 7.6l.5 1.6h1.7l-1.4 1 .5 1.6-1.3-1-1.4 1 .5-1.6-1.4-1h1.7z"/><rect x="15" width="0" height="20"/></svg>
@@ -170,7 +174,7 @@
     <div class="center" style="top:330px" data-in="16.35" data-fx="drop">
       <svg width="170" height="210" viewBox="0 0 24 30"><path fill="#f28a52" d="M12 0C5.9 0 1 4.9 1 11c0 8 11 19 11 19s11-11 11-19C23 4.9 18.1 0 12 0z"/><circle cx="12" cy="11" r="4.3" fill="#fff"/></svg>
     </div>
-    <div class="center" style="top:575px" data-in="16.55" data-fx="pop"><span class="chip">LMAKAN</span></div>
+    <div class="center" style="top:575px" data-in="16.55" data-fx="pop"><span class="chip ar" style="font-family:Cairo; letter-spacing:0; font-size:34px">المكان</span></div>
     <div class="center ar" style="top:640px; font-size:150px; font-weight:900" data-in="17.4" data-fx="up">قسنطينة</div>
     <div class="center ar yellow" style="top:850px; font-size:92px; font-weight:700" data-in="18.25" data-fx="up">نوفال فيل</div>
     <div class="center ar" style="top:980px; font-size:92px; font-weight:700" data-in="18.85" data-fx="pop">لازون</div>
@@ -181,29 +185,29 @@
     <div class="center" style="top:390px" data-in="20.05" data-fx="pop">
       <svg width="120" height="160" viewBox="0 0 24 32" fill="none" stroke="#f28a52" stroke-width="3" stroke-linecap="round"><circle cx="12" cy="10" r="7.5"/><path d="M12 17.5V30M7 25h10"/></svg>
     </div>
-    <div class="center t-m" style="top:600px; font-size:76px; font-weight:700" data-in="20.25" data-fx="up">Lkhedma</div>
-    <div class="center orange" style="top:700px; font-size:76px; font-weight:700" data-in="20.55" data-fx="up">nisa2iya</div>
+    <div class="center t-m ar" style="top:580px; font-size:86px; font-weight:900" data-in="20.25" data-fx="up">الخدمة</div>
+    <div class="center orange ar" style="top:695px; font-size:86px; font-weight:900" data-in="20.55" data-fx="up">نسائية</div>
     <div class="center" style="top:830px; font-size:190px; font-weight:700" data-in="21.0" data-fx="pop"><span id="pct">0</span><span class="orange">%</span></div>
   </div>
 
   <!-- 7 · Nidham lkhedma: b'la tâche -->
   <div class="scene" data-start="22.45" data-end="24.75">
-    <div class="center" style="top:560px" data-in="22.7" data-fx="pop"><span class="chip">NIDHAM LKHEDMA</span></div>
-    <div class="center h-l" style="top:680px; font-size:110px" data-in="23.8" data-fx="up">B'LA</div>
+    <div class="center" style="top:560px" data-in="22.7" data-fx="pop"><span class="chip ar" style="font-family:Cairo; letter-spacing:0; font-size:34px">نظام الخدمة</span></div>
+    <div class="center h-l" style="top:680px; font-size:110px" data-in="23.8" data-fx="up">À LA</div>
     <div class="center h-l orange" style="top:800px; font-size:130px" data-in="23.95" data-fx="pop">TÂCHE</div>
   </div>
 
   <!-- 8 · Mel sebt l lkhmis, 8h → 16h -->
   <div class="scene" data-start="24.75" data-end="29.2">
-    <div class="center t-m" style="top:400px; font-size:66px; font-weight:700" data-in="25.0" data-fx="up">Mel <span class="orange">Sebt</span> l <span class="orange">Lkhmis</span></div>
-    <div class="days" style="top:540px">
-      <div class="day" data-in="25.2" data-fx="pop">Sebt</div>
-      <div class="day" data-in="25.32" data-fx="pop">Had</div>
-      <div class="day" data-in="25.44" data-fx="pop">Tnin</div>
-      <div class="day" data-in="25.56" data-fx="pop">Tlata</div>
-      <div class="day" data-in="25.68" data-fx="pop">Larb3a</div>
-      <div class="day" data-in="25.8" data-fx="pop">Lkhmis</div>
-      <div class="day off" data-in="25.95" data-fx="pop">Jem3a</div>
+    <div class="center t-m ar" style="top:380px; font-size:72px; font-weight:900" data-in="25.0" data-fx="up">من <span class="orange">السبت</span> <span class="orange">للخميس</span></div>
+    <div class="days ar" style="top:540px">
+      <div class="day" data-in="25.2" data-fx="pop">السبت</div>
+      <div class="day" data-in="25.32" data-fx="pop">الحد</div>
+      <div class="day" data-in="25.44" data-fx="pop">الاثنين</div>
+      <div class="day" data-in="25.56" data-fx="pop">الثلاثاء</div>
+      <div class="day" data-in="25.68" data-fx="pop">الأربعاء</div>
+      <div class="day" data-in="25.8" data-fx="pop">الخميس</div>
+      <div class="day off" data-in="25.95" data-fx="pop">الجمعة</div>
     </div>
     <div class="center" style="top:830px" data-in="26.45" data-fx="up">
       <span style="display:inline-flex; align-items:center; gap:36px; font-size:96px; font-weight:700">
@@ -211,39 +215,39 @@
         8h <span class="orange">→</span> 16h
       </span>
     </div>
-    <div class="center t-s" style="top:1010px; font-size:46px" data-in="27.3" data-fx="up">Mel <span class="yellow">sbah</span> 7atta l <span class="yellow">3chiya</span></div>
+    <div class="center t-s ar" style="top:1000px; font-size:50px; font-weight:700" data-in="27.3" data-fx="up">من <span class="yellow">الصباح</span> حتى <span class="yellow">العشية</span></div>
   </div>
 
   <!-- 9 · Lindibat w l'itqan · primes -->
   <div class="scene" data-start="29.2" data-end="33.3">
-    <div class="rule" style="top:500px" data-in="29.45" data-fx="left">
+    <div class="rule ar" style="top:500px; font-family:Cairo; font-size:50px" data-in="29.45" data-fx="left">
       <div class="ico" style="background:#f28a52"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17h.01"/></svg></div>
-      <div>Lindibat w l'itqan <span class="orange">darouri</span></div>
+      <div>الانضباط والإتقان <span class="orange">ضروري</span></div>
     </div>
-    <div class="rule" style="top:710px" data-in="31.65" data-fx="left">
+    <div class="rule ar" style="top:710px; font-family:Cairo; font-size:50px" data-in="31.65" data-fx="left">
       <div class="ico" style="background:#d9a92b"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2l4 7 4-7"/><circle cx="12" cy="15" r="6"/><path d="M12 12.5v5"/></svg></div>
-      <div>Kayen nidham ta3 <span class="yellow">primes</span></div>
+      <div>كاين نظام تاع <span class="yellow lat">primes</span></div>
     </div>
   </div>
 
   <!-- 10 · Ila raki mahtamma, postuli 3la darlemploi.dz -->
   <div class="scene" data-start="33.3" data-end="37.45">
-    <div class="center t-m" style="top:380px; font-size:62px" data-in="33.55" data-fx="up">Ila raki <span class="orange">mahtamma</span>,</div>
-    <div class="center h-l" style="top:470px; font-size:120px" data-in="35.0" data-fx="pop">POSTULI</div>
-    <div class="center yellow" style="top:610px; font-size:56px; font-weight:700" data-in="35.25" data-fx="up">3la</div>
+    <div class="center t-m ar" style="top:315px; font-size:70px; font-weight:900" data-in="33.55" data-fx="up">إلا راكي <span class="orange">مهتمة</span>،</div>
+    <div class="center h-l" style="top:470px; font-size:120px" data-in="35.0" data-fx="pop">POSTULEZ</div>
+    <div class="center yellow ar" style="top:600px; font-size:60px; font-weight:900" data-in="35.25" data-fx="up">على</div>
     <div class="urlbar" style="top:720px" data-in="35.35" data-fx="up">
       <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#f28a52" stroke-width="2"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c3 3.2 3 15.8 0 19M12 2.5c-3 3.2-3 15.8 0 19"/></svg>
       <span><span id="typed"></span><span class="caret" id="caret"></span></span>
     </div>
-    <div class="center" style="top:920px" data-in="36.3" data-fx="pop"><span class="btn" id="btn">POSTULI <span>→</span></span></div>
+    <div class="center" style="top:920px" data-in="36.3" data-fx="pop"><span class="btn" id="btn">POSTULEZ <span>→</span></span></div>
     <svg id="cursor" width="70" height="70" viewBox="0 0 24 24" style="position:absolute; left:0; top:0; opacity:0"><path d="M4 2l15 11-6.5 1.2L16 21l-3 1.4-3.6-6.9L4 20z" fill="#fff" stroke="#1b3a78" stroke-width="1.4" stroke-linejoin="round"/></svg>
   </div>
 
   <!-- 11 · Dar L'emploi… lkhedma testennak! -->
   <div class="scene" data-start="37.45" data-end="99">
     <div class="center" style="top:400px" data-in="37.6" data-fx="pop"><span class="logobox"><img src="assets/logo.png" alt=""></span></div>
-    <div class="center" style="top:690px; font-size:84px; font-weight:700" data-in="38.75" data-fx="up">Lkhedma</div>
-    <div class="center orange" style="top:790px; font-size:92px; font-weight:700" data-in="39.05" data-fx="pop">testennak!</div>
+    <div class="center ar" style="top:670px; font-size:92px; font-weight:900" data-in="38.75" data-fx="up">الخدمة</div>
+    <div class="center orange ar" style="top:790px; font-size:100px; font-weight:900" data-in="39.05" data-fx="pop">تستناك!</div>
     <div class="center" style="top:950px" data-in="39.6" data-fx="up"><span class="pill">www.darlemploi.dz</span></div>
   </div>
 
