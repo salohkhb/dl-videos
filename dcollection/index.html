@@ -1,0 +1,344 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Dcollection – Dar L'emploi</title>
+<link rel="stylesheet" href="assets/fonts.css">
+<style>
+  :root {
+    --navy: #1b3a78;
+    --orange: #f28a52;
+    --yellow: #f2c94c;
+    --white: #ffffff;
+    --muted: rgba(255,255,255,.82);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #f4f5fa; }
+  body { font-family: 'Comfortaa', sans-serif; color: var(--white); }
+  .ar { font-family: 'Cairo', sans-serif; direction: rtl; }
+
+  #header { position: absolute; left: 0; top: 0; width: 1080px; height: 230px; display: flex; align-items: center; justify-content: center; }
+  #header img { width: 600px; margin-top: 10px; }
+
+  #card {
+    position: absolute; left: 36px; top: 230px; width: 1008px; height: 1650px;
+    border-radius: 72px; overflow: hidden;
+    background: radial-gradient(120% 90% at 50% 45%, #2552a3 0%, #1d438c 45%, #142f68 100%);
+    box-shadow: 0 30px 60px rgba(20,40,90,.18);
+  }
+  #grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.045) 2px, transparent 2px),
+      linear-gradient(90deg, rgba(255,255,255,.045) 2px, transparent 2px);
+    background-size: 91px 91px;
+  }
+  .blob { position: absolute; border-radius: 50%; filter: blur(90px); }
+  #blob1 { width: 760px; height: 760px; background: rgba(160,100,110,.75); }
+  #blob2 { width: 700px; height: 700px; background: rgba(110,120,95,.65); }
+  #blob3 { width: 800px; height: 800px; background: rgba(40,100,200,.45); }
+  .dot { position: absolute; border-radius: 50%; background: rgba(255,255,255,.75); }
+
+  #footer { position: absolute; left: 0; right: 0; top: 1540px; text-align: center; font-size: 34px; letter-spacing: 3px; font-weight: 600; color: rgba(255,255,255,.85); }
+  #bar { position: absolute; left: 120px; width: 768px; top: 1596px; height: 8px; border-radius: 4px; background: rgba(255,255,255,.18); overflow: hidden; }
+  #barfill { height: 100%; width: 0; border-radius: 4px; background: linear-gradient(90deg, var(--orange), var(--yellow)); }
+
+  .scene { position: absolute; inset: 0; display: none; }
+  .center { position: absolute; left: 0; right: 0; text-align: center; }
+  [data-in] { will-change: transform, opacity, filter; }
+
+  .chip {
+    display: inline-flex; align-items: center; gap: 14px;
+    padding: 12px 30px; border-radius: 40px;
+    background: rgba(255,255,255,.12); border: 2px solid rgba(255,255,255,.22);
+    font-size: 30px; font-weight: 700; letter-spacing: 3px;
+  }
+  .chip::before { content: ''; width: 12px; height: 12px; border-radius: 50%; background: var(--orange); }
+  .chip.gold { background: transparent; border-color: var(--yellow); color: var(--yellow); letter-spacing: 0; font-weight: 600; }
+  .chip.gold::before { display: none; }
+
+  .h-xl { font-size: 150px; font-weight: 700; line-height: 1.05; }
+  .h-l { font-size: 100px; font-weight: 700; line-height: 1.1; }
+  .h-m { font-size: 72px; font-weight: 700; line-height: 1.15; }
+  .t-m { font-size: 52px; font-weight: 600; }
+  .t-s { font-size: 44px; font-weight: 400; color: var(--muted); line-height: 1.4; }
+  .orange { color: var(--orange); }
+  .yellow { color: var(--yellow); }
+
+  .icon-tile {
+    width: 200px; height: 200px; border-radius: 48px; background: #fff;
+    display: inline-flex; align-items: center; justify-content: center;
+    box-shadow: 0 20px 40px rgba(0,0,0,.25);
+  }
+
+  .job {
+    position: absolute; left: 64px; right: 64px; height: 236px;
+    background: #fff; border-radius: 56px; display: flex; align-items: center; gap: 44px; padding: 0 48px;
+    box-shadow: 0 20px 40px rgba(0,0,0,.2); color: var(--navy);
+  }
+  .job .ico { width: 152px; height: 152px; border-radius: 40px; background: var(--orange); display: flex; align-items: center; justify-content: center; flex: none; }
+  .job .name { font-size: 62px; font-weight: 700; }
+  .job .sub { font-size: 36px; color: #6d7a96; margin-top: 8px; }
+  .pro { display: inline-block; background: var(--orange); color: #fff; padding: 2px 18px; border-radius: 20px; font-weight: 700; }
+
+  .rule {
+    position: absolute; left: 50px; right: 50px; height: 160px;
+    background: rgba(255,255,255,.1); border: 2px solid rgba(255,255,255,.2); border-radius: 40px;
+    display: flex; align-items: center; gap: 36px; padding: 0 36px;
+    font-size: 46px; font-weight: 700;
+  }
+  .rule .ico { width: 100px; height: 100px; border-radius: 28px; display: flex; align-items: center; justify-content: center; flex: none; }
+
+  .days { position: absolute; left: 60px; right: 60px; display: flex; flex-wrap: wrap; justify-content: center; gap: 22px; }
+  .day { background: #fff; color: var(--navy); font-size: 38px; font-weight: 700; padding: 20px 0; width: 196px; text-align: center; border-radius: 28px; }
+  .day.off { background: transparent; border: 2px dashed rgba(255,255,255,.35); color: rgba(255,255,255,.55); text-decoration: line-through; }
+
+  .urlbar {
+    position: absolute; left: 80px; right: 80px; height: 130px; background: #fff; border-radius: 65px;
+    display: flex; align-items: center; gap: 26px; padding: 0 44px; color: var(--navy); font-size: 56px; font-weight: 700;
+  }
+  .caret { display: inline-block; width: 4px; height: 58px; background: var(--orange); margin-left: 6px; vertical-align: middle; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 22px; padding: 30px 74px; border-radius: 70px;
+    background: var(--orange); font-size: 58px; font-weight: 700; letter-spacing: 2px;
+    box-shadow: 0 18px 40px rgba(242,138,82,.45);
+  }
+  .logobox { display: inline-block; background: #fff; border-radius: 52px; padding: 34px 50px; box-shadow: 0 20px 50px rgba(0,0,0,.25); }
+  .logobox img { width: 600px; display: block; }
+  .pill { display: inline-block; background: var(--orange); border-radius: 40px; padding: 16px 40px; font-size: 38px; font-weight: 700; }
+</style>
+</head>
+<body>
+<div id="header"><img src="assets/logo.png" alt="Dar L'emploi"></div>
+
+<div id="card">
+  <div id="blob3" class="blob"></div>
+  <div id="blob1" class="blob"></div>
+  <div id="blob2" class="blob"></div>
+  <div id="grid"></div>
+  <div id="dots"></div>
+
+  <!-- 1 · Khedma jdida 3la Dar L'emploi -->
+  <div class="scene" data-start="0" data-end="2.65">
+    <div class="center" style="top:560px" data-in="0.05" data-fx="pop"><span class="chip">OFFRE D'EMPLOI</span></div>
+    <div class="center h-xl" style="top:660px" data-in="0.15" data-fx="up">KHEDMA</div>
+    <div class="center h-xl orange" style="top:820px" data-in="0.55" data-fx="pop">JDIDA!</div>
+    <div class="center t-m" style="top:1010px" data-in="1.1" data-fx="up">3la Dar L'emploi</div>
+  </div>
+
+  <!-- 2 · Dcollection -->
+  <div class="scene" data-start="2.65" data-end="6.65">
+    <div class="center" style="top:380px" data-in="2.8" data-fx="pop">
+      <span class="icon-tile"><svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="#1b3a78" stroke-width="1.6" stroke-linejoin="round"><path d="M3 20V10l5 3V10l5 3V6h3l1 0v14z"/><path d="M2 20h20"/><path d="M7 16.5h1.5M11 16.5h1.5M15 16.5h1.5" stroke="#f28a52" stroke-width="2"/></svg></span>
+    </div>
+    <div class="center h-l" style="top:640px" data-in="2.95" data-fx="up">D<span class="orange">collection</span></div>
+    <div class="center t-s" style="top:800px; padding:0 90px; color:#fff" data-in="3.9" data-fx="up">Masna3 ta3 lebsa jahza<br>lel nsa</div>
+    <div class="center" style="top:980px" data-in="4.6" data-fx="pop"><span class="chip gold">Prêt-à-porter féminin</span></div>
+  </div>
+
+  <!-- 3 · Rahom y7awsou 3la -->
+  <div class="scene" data-start="6.65" data-end="12.1">
+    <div class="center t-m" style="top:420px; font-size:66px" data-in="6.85" data-fx="up">Rahom y7awsou 3la:</div>
+    <div class="job" style="top:580px" data-in="7.6" data-fx="left">
+      <div class="ico"><svg width="96" height="96" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.1 15.9M14.5 14.5 20 20M8.1 8.1 12 12"/></svg></div>
+      <div><div class="name">Khayyatat</div><div class="sub">Couture des vêtements</div></div>
+    </div>
+    <div class="job" style="top:860px" data-in="8.95" data-fx="left">
+      <div class="ico"><svg width="96" height="96" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17h18v-1a7 7 0 0 0-7-7H9.5"/><path d="M9.5 9H6.5a3 3 0 0 0-3 3"/><path d="M3 17a0 0 0 0 1 0 0"/><path d="M6 20h2M11 20h2M16 20h2" stroke-width="2.2"/></svg></div>
+      <div><div class="name">Kayy lebsa</div><div class="sub">Repassage <span class="pro" data-in="11.3" data-fx="pop">b'i7tirafiya</span></div></div>
+    </div>
+  </div>
+
+  <!-- 4 · Jawda w itqan · Made in DZ -->
+  <div class="scene" data-start="12.1" data-end="16.25">
+    <div class="center" style="top:360px" data-in="12.1" data-fx="spin">
+      <svg width="130" height="130" viewBox="0 0 24 24"><path fill="#f2c94c" d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"/></svg>
+    </div>
+    <div class="center h-m" style="top:540px; font-size:86px" data-in="12.2" data-fx="up">Jawda</div>
+    <div class="center h-m orange" style="top:640px; font-size:86px" data-in="12.6" data-fx="up">w Itqan</div>
+    <div class="center t-s" style="top:800px; color:#fff" data-in="13.2" data-fx="up">bach ntawrou lmontouj<br>lma7alli</div>
+    <div class="center" style="top:985px" data-in="14.85" data-fx="pop">
+      <span style="display:inline-flex; align-items:center; gap:28px; font-size:60px; font-weight:700">
+        <svg width="120" height="80" viewBox="0 0 30 20" style="border-radius:8px"><rect width="15" height="20" fill="#006233"/><rect x="15" width="15" height="20" fill="#fff"/><circle cx="15" cy="10" r="5" fill="#d21034"/><circle cx="16.3" cy="10" r="4" fill="#fff"/><circle cx="16" cy="10" r="0" /><path fill="#d21034" d="M18.3 7.6l.5 1.6h1.7l-1.4 1 .5 1.6-1.3-1-1.4 1 .5-1.6-1.4-1h1.7z"/><rect x="15" width="0" height="20"/></svg>
+        Made in DZ
+      </span>
+    </div>
+  </div>
+
+  <!-- 5 · Lmakan -->
+  <div class="scene" data-start="16.25" data-end="19.95">
+    <div class="center" style="top:330px" data-in="16.35" data-fx="drop">
+      <svg width="170" height="210" viewBox="0 0 24 30"><path fill="#f28a52" d="M12 0C5.9 0 1 4.9 1 11c0 8 11 19 11 19s11-11 11-19C23 4.9 18.1 0 12 0z"/><circle cx="12" cy="11" r="4.3" fill="#fff"/></svg>
+    </div>
+    <div class="center" style="top:575px" data-in="16.55" data-fx="pop"><span class="chip">LMAKAN</span></div>
+    <div class="center ar" style="top:640px; font-size:150px; font-weight:900" data-in="17.4" data-fx="up">قسنطينة</div>
+    <div class="center ar yellow" style="top:850px; font-size:92px; font-weight:700" data-in="18.25" data-fx="up">نوفال فيل</div>
+    <div class="center ar" style="top:980px; font-size:92px; font-weight:700" data-in="18.85" data-fx="pop">لازون</div>
+  </div>
+
+  <!-- 6 · Lkhedma nisa2iya 100% -->
+  <div class="scene" data-start="19.95" data-end="22.45">
+    <div class="center" style="top:390px" data-in="20.05" data-fx="pop">
+      <svg width="120" height="160" viewBox="0 0 24 32" fill="none" stroke="#f28a52" stroke-width="3" stroke-linecap="round"><circle cx="12" cy="10" r="7.5"/><path d="M12 17.5V30M7 25h10"/></svg>
+    </div>
+    <div class="center t-m" style="top:600px; font-size:76px; font-weight:700" data-in="20.25" data-fx="up">Lkhedma</div>
+    <div class="center orange" style="top:700px; font-size:76px; font-weight:700" data-in="20.55" data-fx="up">nisa2iya</div>
+    <div class="center" style="top:830px; font-size:190px; font-weight:700" data-in="21.0" data-fx="pop"><span id="pct">0</span><span class="orange">%</span></div>
+  </div>
+
+  <!-- 7 · Nidham lkhedma: b'la tâche -->
+  <div class="scene" data-start="22.45" data-end="24.75">
+    <div class="center" style="top:560px" data-in="22.7" data-fx="pop"><span class="chip">NIDHAM LKHEDMA</span></div>
+    <div class="center h-l" style="top:680px; font-size:110px" data-in="23.8" data-fx="up">B'LA</div>
+    <div class="center h-l orange" style="top:800px; font-size:130px" data-in="23.95" data-fx="pop">TÂCHE</div>
+  </div>
+
+  <!-- 8 · Mel sebt l lkhmis, 8h → 16h -->
+  <div class="scene" data-start="24.75" data-end="29.2">
+    <div class="center t-m" style="top:400px; font-size:66px; font-weight:700" data-in="25.0" data-fx="up">Mel <span class="orange">Sebt</span> l <span class="orange">Lkhmis</span></div>
+    <div class="days" style="top:540px">
+      <div class="day" data-in="25.2" data-fx="pop">Sebt</div>
+      <div class="day" data-in="25.32" data-fx="pop">Had</div>
+      <div class="day" data-in="25.44" data-fx="pop">Tnin</div>
+      <div class="day" data-in="25.56" data-fx="pop">Tlata</div>
+      <div class="day" data-in="25.68" data-fx="pop">Larb3a</div>
+      <div class="day" data-in="25.8" data-fx="pop">Lkhmis</div>
+      <div class="day off" data-in="25.95" data-fx="pop">Jem3a</div>
+    </div>
+    <div class="center" style="top:830px" data-in="26.45" data-fx="up">
+      <span style="display:inline-flex; align-items:center; gap:36px; font-size:96px; font-weight:700">
+        <svg width="150" height="150" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="#fff"/><g fill="#1b3a78"><circle cx="50" cy="12" r="3.5"/><circle cx="88" cy="50" r="3.5"/><circle cx="50" cy="88" r="3.5"/><circle cx="12" cy="50" r="3.5"/></g><line id="hourHand" x1="50" y1="50" x2="50" y2="26" stroke="#1b3a78" stroke-width="7" stroke-linecap="round"/><line id="minHand" x1="50" y1="50" x2="50" y2="18" stroke="#f28a52" stroke-width="4.5" stroke-linecap="round"/><circle cx="50" cy="50" r="5" fill="#f28a52"/></svg>
+        8h <span class="orange">→</span> 16h
+      </span>
+    </div>
+    <div class="center t-s" style="top:1010px; font-size:46px" data-in="27.3" data-fx="up">Mel <span class="yellow">sbah</span> 7atta l <span class="yellow">3chiya</span></div>
+  </div>
+
+  <!-- 9 · Lindibat w l'itqan · primes -->
+  <div class="scene" data-start="29.2" data-end="33.3">
+    <div class="rule" style="top:500px" data-in="29.45" data-fx="left">
+      <div class="ico" style="background:#f28a52"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17h.01"/></svg></div>
+      <div>Lindibat w l'itqan <span class="orange">darouri</span></div>
+    </div>
+    <div class="rule" style="top:710px" data-in="31.65" data-fx="left">
+      <div class="ico" style="background:#d9a92b"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2l4 7 4-7"/><circle cx="12" cy="15" r="6"/><path d="M12 12.5v5"/></svg></div>
+      <div>Kayen nidham ta3 <span class="yellow">primes</span></div>
+    </div>
+  </div>
+
+  <!-- 10 · Ila raki mahtamma, postuli 3la darlemploi.dz -->
+  <div class="scene" data-start="33.3" data-end="37.45">
+    <div class="center t-m" style="top:380px; font-size:62px" data-in="33.55" data-fx="up">Ila raki <span class="orange">mahtamma</span>,</div>
+    <div class="center h-l" style="top:470px; font-size:120px" data-in="35.0" data-fx="pop">POSTULI</div>
+    <div class="center yellow" style="top:610px; font-size:56px; font-weight:700" data-in="35.25" data-fx="up">3la</div>
+    <div class="urlbar" style="top:720px" data-in="35.35" data-fx="up">
+      <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#f28a52" stroke-width="2"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c3 3.2 3 15.8 0 19M12 2.5c-3 3.2-3 15.8 0 19"/></svg>
+      <span><span id="typed"></span><span class="caret" id="caret"></span></span>
+    </div>
+    <div class="center" style="top:920px" data-in="36.3" data-fx="pop"><span class="btn" id="btn">POSTULI <span>→</span></span></div>
+    <svg id="cursor" width="70" height="70" viewBox="0 0 24 24" style="position:absolute; left:0; top:0; opacity:0"><path d="M4 2l15 11-6.5 1.2L16 21l-3 1.4-3.6-6.9L4 20z" fill="#fff" stroke="#1b3a78" stroke-width="1.4" stroke-linejoin="round"/></svg>
+  </div>
+
+  <!-- 11 · Dar L'emploi… lkhedma testennak! -->
+  <div class="scene" data-start="37.45" data-end="99">
+    <div class="center" style="top:400px" data-in="37.6" data-fx="pop"><span class="logobox"><img src="assets/logo.png" alt=""></span></div>
+    <div class="center" style="top:690px; font-size:84px; font-weight:700" data-in="38.75" data-fx="up">Lkhedma</div>
+    <div class="center orange" style="top:790px; font-size:92px; font-weight:700" data-in="39.05" data-fx="pop">testennak!</div>
+    <div class="center" style="top:950px" data-in="39.6" data-fx="up"><span class="pill">www.darlemploi.dz</span></div>
+  </div>
+
+  <div id="footer">WWW.DARLEMPLOI.DZ</div>
+  <div id="bar"><div id="barfill"></div></div>
+</div>
+
+<script>
+const TOTAL = 41.6;
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const outCubic = x => 1 - Math.pow(1 - x, 3);
+const outBack = x => { const c = 1.7; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+
+// deterministic particles
+let seed = 7;
+const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+const dots = [];
+const dotsEl = document.getElementById('dots');
+for (let i = 0; i < 46; i++) {
+  const d = document.createElement('div');
+  d.className = 'dot';
+  const s = 5 + rnd() * 9;
+  d.style.width = d.style.height = s + 'px';
+  dotsEl.appendChild(d);
+  dots.push({ el: d, x: rnd() * 1008, y: rnd() * 1650, v: 8 + rnd() * 22, ph: rnd() * 6.28 });
+}
+
+const scenes = [...document.querySelectorAll('.scene')].map(el => ({
+  el, start: +el.dataset.start, end: +el.dataset.end,
+  items: [...el.querySelectorAll('[data-in]')],
+}));
+
+function fx(el, t) {
+  const t0 = +el.dataset.in, kind = el.dataset.fx;
+  const p = clamp((t - t0) / 0.55);
+  const e = outCubic(p), b = outBack(clamp((t - t0) / 0.5));
+  let tr = '', op = clamp((t - t0) / 0.3), blur = (1 - e) * 10;
+  if (kind === 'up') tr = `translateY(${(1 - e) * 60}px)`;
+  else if (kind === 'pop') tr = `scale(${0.6 + 0.4 * b})`;
+  else if (kind === 'left') tr = `translateX(${(1 - e) * -140}px)`;
+  else if (kind === 'drop') tr = `translateY(${(1 - b) * -160}px)`;
+  else if (kind === 'spin') tr = `rotate(${(1 - e) * -180}deg) scale(${0.3 + 0.7 * b})`;
+  el.style.opacity = op;
+  el.style.transform = tr;
+  el.style.filter = blur > 0.2 ? `blur(${blur}px)` : 'none';
+}
+
+window.render = function (t) {
+  // background motion
+  const b1 = document.getElementById('blob1'), b2 = document.getElementById('blob2'), b3 = document.getElementById('blob3');
+  b1.style.transform = `translate(${-260 + Math.sin(t * .25) * 60}px, ${-180 + Math.cos(t * .2) * 50}px)`;
+  b2.style.transform = `translate(${560 + Math.cos(t * .22) * 60}px, ${1080 + Math.sin(t * .3) * 50}px)`;
+  b3.style.transform = `translate(${100 + Math.sin(t * .15) * 80}px, ${420 + Math.cos(t * .18) * 70}px)`;
+  for (const d of dots) {
+    const y = ((d.y - t * d.v) % 1650 + 1650) % 1650;
+    d.el.style.transform = `translate(${d.x + Math.sin(t * .6 + d.ph) * 10}px, ${y}px)`;
+    d.el.style.opacity = 0.35 + 0.45 * (0.5 + 0.5 * Math.sin(t * 1.4 + d.ph));
+  }
+  document.getElementById('barfill').style.width = (clamp(t / TOTAL) * 100) + '%';
+
+  for (const s of scenes) {
+    const on = t >= s.start - 0.01 && t < s.end;
+    s.el.style.display = on ? 'block' : 'none';
+    if (!on) continue;
+    const out = clamp((s.end - t) / 0.3);
+    s.el.style.opacity = out;
+    s.el.style.transform = `scale(${0.96 + 0.04 * out})`;
+    s.el.style.filter = out < 1 ? `blur(${(1 - out) * 12}px)` : 'none';
+    for (const el of s.items) fx(el, t);
+  }
+
+  // 100% counter
+  document.getElementById('pct').textContent = Math.round(100 * outCubic(clamp((t - 21.0) / 0.9)));
+
+  // clock: 8h → 16h
+  const k = outCubic(clamp((t - 26.6) / 1.4));
+  const hour = 8 + 8 * k;
+  document.getElementById('hourHand').setAttribute('transform', `rotate(${(hour % 12) * 30} 50 50)`);
+  document.getElementById('minHand').setAttribute('transform', `rotate(${hour * 360} 50 50)`);
+
+  // url typing
+  const url = 'darlemploi.dz';
+  const n = Math.floor(clamp((t - 35.6) / 0.9) * url.length);
+  document.getElementById('typed').textContent = url.slice(0, n);
+  document.getElementById('caret').style.opacity = (Math.floor(t * 2.5) % 2 === 0 || n < url.length) ? 1 : 0;
+
+  // cursor click on button
+  const cur = document.getElementById('cursor');
+  const cm = outCubic(clamp((t - 36.5) / 0.5));
+  cur.style.opacity = clamp((t - 36.45) / 0.15);
+  cur.style.transform = `translate(${760 - 200 * cm}px, ${1260 - 230 * cm}px)`;
+  const click = clamp(1 - Math.abs(t - 37.05) / 0.12);
+  document.getElementById('btn').style.transform = `scale(${1 - 0.07 * click})`;
+};
+window.render(0);
+</script>
+</body>
+</html>
